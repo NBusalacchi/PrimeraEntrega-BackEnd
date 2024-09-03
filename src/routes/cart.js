@@ -5,7 +5,6 @@ const router = express.Router();
 const cartsFilePath = "./data/cart.json";
 const productsFilePath = "./data/products.json";
 
-// Función para leer los carritos desde el archivo JSON
 const readCartsFromFile = () => {
     try {
         const data = fs.readFileSync(cartsFilePath, "utf-8");
@@ -16,7 +15,6 @@ const readCartsFromFile = () => {
     }
 };
 
-// Función para leer los productos desde el archivo JSON
 const readProductsFromFile = () => {
     try {
         const data = fs.readFileSync(productsFilePath, "utf-8");
@@ -27,7 +25,6 @@ const readProductsFromFile = () => {
     }
 };
 
-// Función para escribir los carritos al archivo JSON
 const writeCartsToFile = (carts) => {
     try {
         fs.writeFileSync(cartsFilePath, JSON.stringify(carts, null, 2));
@@ -36,7 +33,6 @@ const writeCartsToFile = (carts) => {
     }
 };
 
-// Ruta para crear un nuevo carrito
 router.post("/", (req, res) => {
     const carts = readCartsFromFile();
     const {products} = req.body;
@@ -56,7 +52,6 @@ router.post("/", (req, res) => {
     res.status(200).json({status: "Carrito creado con éxito", Cart: newCart});
 });
 
-// Ruta para obtener un carrito por ID
 router.get("/:cid", (req, res) => {
     const carts = readCartsFromFile();
     const cartId = +req.params.cid;
@@ -70,7 +65,6 @@ router.get("/:cid", (req, res) => {
     res.status(200).json({Operacion: "Se encontró el carrito", Carrito: carts[cartIndex]});
 });
 
-// Ruta para agregar un producto al carrito
 router.post("/:cid/product/:pid", (req, res) => {
     const carts = readCartsFromFile();
     const products = readProductsFromFile();
@@ -101,7 +95,6 @@ router.post("/:cid/product/:pid", (req, res) => {
         });
     }
 
-    // Guardar los cambios en el archivo
     writeCartsToFile(carts);
 
     res.status(200).json({message: "Producto agregado al carrito", cart});
