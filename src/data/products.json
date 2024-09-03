@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "title": "Hamburguesa",
+    "description": "Hamburguesa con medallón, lechuga, tomate, y queso",
+    "code": "A4",
+    "price": 700,
+    "status": true,
+    "stock": 5,
+    "category": "Hamburguesa"
+  }
+]
