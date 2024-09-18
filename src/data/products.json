@@ -1,12 +1,32 @@
 [
-  {
-    "id": 1,
-    "title": "Hamburguesa",
-    "description": "Hamburguesa con medallón, lechuga, tomate, y queso",
-    "code": "A4",
-    "price": 700,
-    "status": true,
-    "stock": 5,
-    "category": "Hamburguesa"
-  }
+    {
+        "id": 1,
+        "title": "Hamburguesa doble",
+        "description": "Hamburguesa con 2 medallones, lechuga, tomate, y queso",
+        "code": "A4",
+        "price": 1000,
+        "status": true,
+        "stock": 5,
+        "category": "Hamburguesa"
+    },
+    {
+        "id": 2,
+        "title": "Hamburguesa Triple",
+        "description": "Hamburguesa con 2 medallones, lechuga, tomate, y queso",
+        "code": "A4",
+        "price": 1000,
+        "status": true,
+        "stock": 5,
+        "category": "Hamburguesa"
+    },
+    {
+        "id": 3,
+        "title": "Hamburguesa cuadruple",
+        "description": "Hamburguesa con 4 medallones, lechuga, tomate, y queso",
+        "code": "A4",
+        "price": 1000,
+        "status": true,
+        "stock": 5,
+        "category": "Hamburguesa"
+    }
 ]

@@ -1,5 +1,6 @@
 import express from "express";
 import fs from "fs";
+import io from "../app.js";
 
 const router = express.Router();
 const productsFilePath = "./data/products.json";
@@ -26,6 +27,15 @@ const writeProductsToFile = (products) => {
     }
 };
 
+router.get("/realTimeProducts", (req, res) => {
+    const products = readProductsFromFile();
+
+    if (products.length === 0) {
+        return res.status(200).json({estado: "Aun no hay productos disponibles"});
+    }
+    res.render("realTimeProducts", {products});
+});
+
 router.get("/", (req, res) => {
     const products = readProductsFromFile();
 
@@ -33,7 +43,7 @@ router.get("/", (req, res) => {
         return res.status(200).json({estado: "Aun no hay productos disponibles"});
     }
 
-    res.send(products);
+    res.render("home", {products});
 });
 
 router.get("/:id", (req, res) => {
@@ -48,7 +58,7 @@ router.get("/:id", (req, res) => {
     }
 });
 
-router.post("/add", (req, res) => {
+router.post("/", (req, res) => {
     const products = readProductsFromFile();
     const {title, description, code, price, status, stock, category} = req.body;
 
@@ -68,7 +78,10 @@ router.post("/add", (req, res) => {
     };
 
     products.push(newProduct);
+
     writeProductsToFile(products);
+
+    io.sockets.emit("productsRealTime", {products});
 
     res.status(200).json({Operacion: "Realizada", ProductoAgregado: newProduct});
 });
@@ -109,6 +122,7 @@ router.put("/change/:id", (req, res) => {
 
     products[productIndex] = updatedProduct;
     writeProductsToFile(products);
+    io.sockets.emit("productsRealTime", {products});
 
     res.status(200).json({Operacion: "Realizada", ProductoActualizadoA: updatedProduct});
 });
@@ -123,7 +137,10 @@ router.delete("/delete/:id", (req, res) => {
     }
 
     const deletedProd = products.splice(productIndex, 1);
+
     writeProductsToFile(products);
+
+    io.sockets.emit("productsRealTime", {products});
 
     res.status(200).json({Operacion: "Realizada", ProductoEliminado: deletedProd[0]});
 });

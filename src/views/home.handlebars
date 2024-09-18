@@ -1,0 +1,14 @@
+<h1>Lista de Productos</h1>
+<ul>
+    {{#each products}}
+        <li>
+            <strong>Nombre:</strong>
+            {{this.title}}<br />
+            <strong>Descripción:</strong>
+            {{this.description}}<br />
+            <strong>Precio:</strong>
+            {{this.price}}<br />
+        </li>
+        <br />
+    {{/each}}
+</ul>
